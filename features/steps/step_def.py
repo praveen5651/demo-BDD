@@ -126,5 +126,9 @@ def validate_results(context):
 def close_browser(context):
     context.step_impl.close_brwoser()
 
+@then(u'add item to cart and validate success msg')
+def add_item_to_cart_and_validate_success_msg(context):
+    context.step_impl.add_item_to_cart()
+
 
 

@@ -2,6 +2,7 @@ import time
 
 from pages.Base import Base
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import ElementClickInterceptedException
 
 import random
 
@@ -171,6 +172,27 @@ class StepImp:
             prdocut_title = lines[1].strip()
             Product_details["Price"].append(price)
             Product_details['Product_title'].append(prdocut_title)
+        return Product_details
+
+
+    def add_item_to_cart(self):
+        for i in range(4):
+            self.base.scroll_page(0, 500)
+            self.base.driver.implicitly_wait(10)
+            self.base.select_x_path_locator(locator=f'(//a[@href="/product_details/2" or text()="View Product"]){[i]}').click()
+            self.base.driver.implicitly_wait(10)
+            item = self.base.driver.find_element(By.XPATH,'//button[@class="btn btn-default cart"]')
+            item.click()
+            self.base.driver.implicitly_wait(10)
+            if self.base.select_x_path_locator(locator='//i[@class="material-icons"]') and self.base.select_x_path_locator(
+                    locator='(//p[@class="text-center"])[1]'):
+                print('Product is added to cart')
+                self.base.driver.implicitly_wait(10)
+                self.base.select_x_path_locator(locator='//button[@class="btn btn-success close-modal btn-block"]').click()
+                self.base.driver.implicitly_wait(10)
+                self.base.driver.back()
+                self.base.driver.implicitly_wait(10)
+
 
 
     def close_brwoser(self):

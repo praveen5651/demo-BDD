@@ -3,6 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.action_chains import ActionChains
 import random
+from selenium.webdriver.chrome.options import Options
 
 class Base:
     _instance = None  # Class-level instance variable
@@ -16,13 +17,20 @@ class Base:
 
     def _initialize(self):
         """ Initialize the WebDriver only once """
-        self.ser = Service("C:\\Users\\prave\\Downloads\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe")
-        self.driver = webdriver.Chrome(service=self.ser)
+        options = Options()
+        # options.add_argument("--headless")  # Run Chrome in headless mode
+        # options.add_argument("--no-sandbox")
+        # options.add_argument("--disable-dev-shm-usage")
+
+        self.driver = webdriver.Chrome(options=options)
         self.action = ActionChains(self.driver)
     # def __init__(self):
-    #     self.ser = Service("C:\\Users\\prave\\Downloads\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe")
-    #     self.driver = webdriver.Chrome(service=self.ser)
+    #     # self.ser = Service("C:\\Users\\prave\\Downloads\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe")
+    #     # self.driver = webdriver.Chrome(service=self.ser)
+    #     options = Options()
+    #     self.driver = webdriver.Chrome(options=options)
     #     self.action = ActionChains(self.driver)
+
 
     def open_url(self, url):
         self.driver.get(url=url)
