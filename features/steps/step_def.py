@@ -130,5 +130,28 @@ def close_browser(context):
 def add_item_to_cart_and_validate_success_msg(context):
     context.step_impl.add_item_to_cart()
 
+@given(u'Launch contact us page')
+def Launch_contact_us_page(context):
+    context.step_impl.launch_contact_us()
+
+
+@when(u'verify get in touch form')
+def verify_get_in_touch_form(context):
+    context.step_impl.verify_get_in_touch_form()
+
+
+@then(u'enter name email subject and msg')
+def enter_name_email_subject_and_msg(context):
+    context.step_impl.fill_contact_us_form()
+
+@then(u'verify success msg')
+def verify_success_msg(context):
+    context.step_impl.verify_succes_msg()
+
+
+@then(u'click on submit')
+def click_on_submit(context):
+    context.step_impl.click_on_submit()
+
 
 
