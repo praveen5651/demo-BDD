@@ -24,12 +24,6 @@ class Base:
 
         self.driver = webdriver.Chrome(options=options)
         self.action = ActionChains(self.driver)
-    # def __init__(self):
-    #     # self.ser = Service("C:\\Users\\prave\\Downloads\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe")
-    #     # self.driver = webdriver.Chrome(service=self.ser)
-    #     options = Options()
-    #     self.driver = webdriver.Chrome(options=options)
-    #     self.action = ActionChains(self.driver)
 
 
     def open_url(self, url):
@@ -58,12 +52,9 @@ class Base:
 
     def enter_username_and_emai_id(self):
         user_names = ["praveenKumar3", "kumarPraveen", "PKPraveen", "KUmarPK"]
-        random.shuffle(user_names)
+        user_name = random.choice(user_names)
         rand_nums = random.randint(1, 1000)
-        # converting to str
-        nums = str(rand_nums)
-        for user_name in user_names:
-            user_mail = user_name + nums + "@gmail.com"
+        user_mail = user_name + str(rand_nums) + "@gmail.com"
         return user_name,user_mail
 
 
