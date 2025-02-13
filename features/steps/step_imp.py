@@ -87,8 +87,6 @@ class StepImp:
         self.base.select_x_path_locator(locator='// button[ @ type = "submit" and text() = "Signup"]').click()
         self.base.driver.implicitly_wait(5)
 
-
-
     def validate_enter_deatils_text(self):
         #Enter Account Information
         text = self.base.select_x_path_locator(locator='(//h2[@class="title text-center"])[1]')
@@ -98,6 +96,7 @@ class StepImp:
         else:
             assert False, "Poyindi Kaka"
         self.base.driver.implicitly_wait(5)
+
 
     def enter_star_feilds(self):
         self.base.scroll_page(0,188)
@@ -176,34 +175,52 @@ class StepImp:
 
 
     def add_item_to_cart(self):
-        for i in range(4):
+        elements = self.base.driver.find_elements(By.XPATH, '//div[@class="productinfo text-center"]')
+        for i in range(1, len(elements) + 1):
             self.base.scroll_page(0, 500)
             self.base.driver.implicitly_wait(10)
-            self.base.select_x_path_locator(locator=f'(//a[@href="/product_details/2" or text()="View Product"]){[i]}').click()
+            self.base.select_x_path_locator(
+                 locator=f'(//a[@href="/product_details/2" or text()="View Product"])[{i}]').click()
             self.base.driver.implicitly_wait(10)
-            item = self.base.driver.find_element(By.XPATH,'//button[@class="btn btn-default cart"]')
+            item = self.base.driver.find_element(By.XPATH, '//button[@class="btn btn-default cart"]')
             item.click()
             self.base.driver.implicitly_wait(10)
-            if self.base.select_x_path_locator(locator='//i[@class="material-icons"]') and self.base.select_x_path_locator(
+            if self.base.select_x_path_locator(
+                    locator='//i[@class="material-icons"]') and self.base.select_x_path_locator(
                     locator='(//p[@class="text-center"])[1]'):
                 print('Product is added to cart')
                 self.base.driver.implicitly_wait(10)
-                self.base.select_x_path_locator(locator='//button[@class="btn btn-success close-modal btn-block"]').click()
+                self.base.select_x_path_locator(
+                    locator='//button[@class="btn btn-success close-modal btn-block"]').click()
                 self.base.driver.implicitly_wait(10)
                 self.base.driver.back()
                 self.base.driver.implicitly_wait(10)
 
 
+    def launch_contact_us(self):
+        self.base.open_url('https://www.automationexercise.com/contact_us')
+
+    def verify_get_in_touch_form(self):
+        if self.base.select_id_locator(locator="contact-us-form"):
+            assert True
+        else:
+            assert False
+
+    def fill_contact_us_form(self):
+        self.base.select_x_path_locator(locator='//input[@placeholder="Name"]').send_keys('Praveen')
+        self.base.select_x_path_locator(locator='//input[@placeholder="Email"]').send_keys('sfsfsbshfs@gmail.com')
+        self.base.select_x_path_locator(locator='//input[@placeholder="Subject"]').send_keys('Your Product is Nyc - T shirt')
+        self.base.select_x_path_locator(locator='//textarea[@placeholder="Your Message Here"]').send_keys('Hi this is me i hope u r u r fine, rendo sari fine, uh fine ...'
+                                                                                                       'Bye bro inga')
+    def click_on_submit(self):
+        self.base.select_x_path_locator(locator='//input[@type="submit"]').click()
+        self.base.alerts.accept()
+
+
+    def verify_succes_msg(self):
+        Text = self.base.select_x_path_locator(locator='//div[@class="status alert alert-success"]')
+        print(Text.text)
 
     def close_brwoser(self):
         self.base.close_opened_browser()
-
-
-
-
-
-
-
-
-
 
